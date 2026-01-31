@@ -1,12 +1,11 @@
-from telegram import Update
-from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
+import os
+from telegram.ext import ApplicationBuilder, CommandHandler
 
-TOKEN = "7611897321:AAH-wIX_xpG5Gl0XjUuBmohqqAZ3x15PCZg"
+TOKEN = os.getenv("BOT_TOKEN")
 
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Я рядом 🤍")
+async def start(update, context):
+    await update.message.reply_text("Бот запущен!")
 
 app = ApplicationBuilder().token(TOKEN).build()
-app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-
+app.add_handler(CommandHandler("start", start))
 app.run_polling()
