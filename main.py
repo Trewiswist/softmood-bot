@@ -1,11 +1,10 @@
 import os
-from telegram import Update, ReplyKeyboardMarkup
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
-    MessageHandler,
+    CallbackQueryHandler,
     ContextTypes,
-    filters,
 )
 
 TOKEN = os.getenv("BOT_TOKEN")
@@ -22,48 +21,36 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     keyboard = [
-        ["👗 Женская одежда"]
+        [InlineKeyboardButton("👗 Женская одежда", callback_data="women")]
     ]
 
     await update.message.reply_text(
         text,
-        reply_markup=ReplyKeyboardMarkup(
-            keyboard,
-            resize_keyboard=True
-        )
+        reply_markup=InlineKeyboardMarkup(keyboard)
     )
 
-# --- категории ---
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user_text = update.message.text
+# --- обработка кнопок ---
+async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
 
-    if user_text == "👗 Женская одежда":
+    if query.data == "women":
         keyboard = [
-            ["👗 Платья"],
-            ["🩱 Нижнее бельё"],
-            ["🧥 Костюмы"],
-            ["🧥 Верхняя одежда"],
-            ["🔙 Назад"],
+            [InlineKeyboardButton("👗 Платья", callback_data="dresses")],
+            [InlineKeyboardButton("🩱 Нижнее бельё", callback_data="lingerie")],
+            [InlineKeyboardButton("🧥 Костюмы", callback_data="suits")],
+            [InlineKeyboardButton("🧥 Верхняя одежда", callback_data="outerwear")],
         ]
 
-        await update.message.reply_text(
+        await query.message.reply_text(
             "Выберите категорию 👇",
-            reply_markup=ReplyKeyboardMarkup(
-                keyboard,
-                resize_keyboard=True
-            )
+            reply_markup=InlineKeyboardMarkup(keyboard)
         )
-
-    elif user_text == "🔙 Назад":
-        await start(update, context)
-
-    else:
-        await update.message.reply_text("Я рядом 🤍")
 
 # --- запуск ---
 app = ApplicationBuilder().token(TOKEN).build()
 
 app.add_handler(CommandHandler("start", start))
-app.add_handler(MessageHandler(filters.TEXT, handle_message))
+app.add_handler(CallbackQueryHandler(buttons))
 
 app.run_polling()
