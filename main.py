@@ -21,19 +21,19 @@ CATEGORIES = {
     "name": "Платье Evening Mood",
     "price": "1890 грн",
     "description": "Для особых случаев 🤍",
-    "photo": "https://..."
+    "photo": "https://images.prom.ua/6878199359_w640_h640_plate-iz-dvustoronnego.jpg"
 },
             {
     "name": "Платье Evening Mood",
     "price": "1890 грн",
     "description": "Для особых случаев 🤍",
-    "photo": "https://..."
+    "photo": "https://images.prom.ua/6878199359_w640_h640_plate-iz-dvustoronnego.jpg"
 },
             {
     "name": "Платье Evening Mood",
     "price": "1890 грн",
     "description": "Для особых случаев 🤍",
-    "photo": "https://..."
+    "photo": "https://images.prom.ua/6878199359_w640_h640_plate-iz-dvustoronnego.jpg"
 },
     },
     "suits": {
@@ -43,19 +43,19 @@ CATEGORIES = {
     "name": "Платье Evening Mood",
     "price": "1890 грн",
     "description": "Для особых случаев 🤍",
-    "photo": "https://..."
+    "photo": "https://images.prom.ua/6878199359_w640_h640_plate-iz-dvustoronnego.jpg"
 },
             {
     "name": "Платье Evening Mood",
     "price": "1890 грн",
     "description": "Для особых случаев 🤍",
-    "photo": "https://..."
+    "photo": "https://images.prom.ua/6878199359_w640_h640_plate-iz-dvustoronnego.jpg"
 },
             {
     "name": "Платье Evening Mood",
     "price": "1890 грн",
     "description": "Для особых случаев 🤍",
-    "photo": "https://..."
+    "photo": "https://images.prom.ua/6878199359_w640_h640_plate-iz-dvustoronnego.jpg"
 },
         ],
     },
@@ -66,19 +66,19 @@ CATEGORIES = {
     "name": "Платье Evening Mood",
     "price": "1890 грн",
     "description": "Для особых случаев 🤍",
-    "photo": "https://..."
+    "photo": "https://images.prom.ua/6878199359_w640_h640_plate-iz-dvustoronnego.jpg"
 },
             {
     "name": "Платье Evening Mood",
     "price": "1890 грн",
     "description": "Для особых случаев 🤍",
-    "photo": "https://..."
+    "photo": "https://images.prom.ua/6878199359_w640_h640_plate-iz-dvustoronnego.jpg"
 },
             {
     "name": "Платье Evening Mood",
     "price": "1890 грн",
     "description": "Для особых случаев 🤍",
-    "photo": "https://..."
+    "photo": "https://images.prom.ua/6878199359_w640_h640_plate-iz-dvustoronnego.jpg"
 },
         ],
     },
@@ -89,19 +89,19 @@ CATEGORIES = {
     "name": "Платье Evening Mood",
     "price": "1890 грн",
     "description": "Для особых случаев 🤍",
-    "photo": "https://..."
+    "photo": "https://images.prom.ua/6878199359_w640_h640_plate-iz-dvustoronnego.jpg"
 },
             {
     "name": "Платье Evening Mood",
     "price": "1890 грн",
     "description": "Для особых случаев 🤍",
-    "photo": "https://..."
+    "photo": "https://images.prom.ua/6878199359_w640_h640_plate-iz-dvustoronnego.jpg"
 },
             {
     "name": "Платье Evening Mood",
     "price": "1890 грн",
     "description": "Для особых случаев 🤍",
-    "photo": "https://..."
+    "photo": "https://images.prom.ua/6878199359_w640_h640_plate-iz-dvustoronnego.jpg"
 },
         ],
     },
