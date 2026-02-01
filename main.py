@@ -4,10 +4,13 @@ from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
     CallbackQueryHandler,
+    MessageHandler,
     ContextTypes,
+    filters,
 )
 
 TOKEN = os.getenv("BOT_TOKEN")
+OWNER_ID = 1612110248  # твой Telegram ID
 
 # ---- ТЕСТОВЫЕ ПЛАТЬЯ ----
 DRESSES = [
@@ -48,6 +51,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_dress(query, context, index):
     dress = DRESSES[index]
     context.user_data["dress_index"] = index
+    context.user_data["waiting_for_phone"] = False
 
     text = (
         f"👗 {dress['name']}\n"
@@ -67,7 +71,6 @@ async def show_dress(query, context, index):
 async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-
     data = query.data
 
     if data == "women":
@@ -89,8 +92,11 @@ async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await show_dress(query, context, index)
 
     elif data == "order":
+        context.user_data["waiting_for_phone"] = True
         await query.message.reply_text(
-            "Спасибо 💛\n\nНапишите, пожалуйста, ваш номер телефона — менеджер свяжется с вами для уточнения деталей."
+            "Спасибо 💛\n\n"
+            "Напишите, пожалуйста, ваш номер телефона.\n"
+            "Менеджер свяжется с вами для уточнения деталей."
         )
 
     elif data == "back_to_categories":
@@ -106,8 +112,40 @@ async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif data == "back_to_start":
         await start(query.message, context)
 
+# ---- ПРИЁМ ТЕЛЕФОНА ----
+async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if context.user_data.get("waiting_for_phone"):
+        phone = update.message.text
+        dress = DRESSES[context.user_data.get("dress_index", 0)]
+
+        # сообщение тебе
+        order_text = (
+            "🛍 НОВЫЙ ЗАКАЗ\n\n"
+            f"👗 Товар: {dress['name']}\n"
+            f"💰 Цена: {dress['price']}\n"
+            f"📞 Телефон: {phone}\n"
+            "📍 Город: Киев\n"
+            "🚚 Доставка: Новая почта (наложенный платёж)"
+        )
+
+        await context.bot.send_message(chat_id=OWNER_ID, text=order_text)
+
+        # ответ клиенту
+        await update.message.reply_text(
+            "Спасибо 🤍\n\n"
+            "Мы находимся в Киеве.\n"
+            "Отправка Новой почтой,\n"
+            "оплата — наложенным платежом.\n\n"
+            "Менеджер скоро свяжется с вами 🌷"
+        )
+
+        context.user_data["waiting_for_phone"] = False
+    else:
+        await update.message.reply_text("Я рядом 🤍")
+
 # ---- ЗАПУСК ----
 app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CallbackQueryHandler(buttons))
+app.add_handler(MessageHandler(filters.TEXT, handle_text))
 app.run_polling()
