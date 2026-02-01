@@ -79,11 +79,11 @@ CATEGORIES = {
     "photo": "https://images.prom.ua/6305503920_w640_h640_teplye-zimnie-kolgotki.jpg"
 },
             {
-                "name": "Комплект Soft Basic",
-                "price": "1190 грн",
-                "description": "На каждый день",
-                "photo": "https://images.prom.ua/6878199359_w640_h640_plate-iz-dvustoronnego.jpg",
-            },
+    "name": "Женский боди длинный рукав сетка-горох 989",
+    "price": "900 ₴",
+    "description": "🖤 Стильный чёрный боди – хит сезона!\n\nХарактеристики:\n🌟 Ткань: джерси + сетка горох\n🌟 Цвет: чёрный\n🌟 Рукав: длинный\n🌟 Вырез: соблазнительный\n\nРазмеры в наличии:\n→ 42-44 (S-M)\n→ 46-48 (L-XL)\n\nМодель: ОЛН 989\nЦена всего 900 грн 🔥\n\nПиши в Telegram/Viber 0684310362\nили заходи на https://in-butik.com.ua",
+    "photo": "https://images.prom.ua/4194789985_w640_h640_zhenskij-bodi-s.jpg"
+},
         ],
     },
 
