@@ -12,33 +12,49 @@ from telegram.ext import (
 TOKEN = os.getenv("BOT_TOKEN")
 OWNER_ID = 1612110248  # твой Telegram ID
 
-# ---- ТЕСТОВЫЕ ПЛАТЬЯ ----
-DRESSES = [
-    {
-        "name": "Платье Soft Line",
-        "price": "1690 грн",
-        "desc": "Лёгкое женственное платье на каждый день. Мягкая ткань, комфортная посадка."
+# ---- КАТЕГОРИИ И ТОВАРЫ ----
+CATEGORIES = {
+    "dresses": {
+        "title": "👗 Платья",
+        "items": [
+            {"name": "Платье Soft Line", "price": "1690 грн", "desc": "Лёгкое и женственное."},
+            {"name": "Платье Evening Mood", "price": "1890 грн", "desc": "Для особых случаев."},
+            {"name": "Платье Cozy Flow", "price": "1590 грн", "desc": "Комфорт и уют."},
+        ],
     },
-    {
-        "name": "Платье Evening Mood",
-        "price": "1890 грн",
-        "desc": "Элегантное платье для особых случаев. Подчёркивает фигуру."
+    "suits": {
+        "title": "🧥 Костюмы",
+        "items": [
+            {"name": "Костюм Urban Chic", "price": "2490 грн", "desc": "Стиль на каждый день."},
+            {"name": "Костюм Soft Office", "price": "2690 грн", "desc": "Элегантный образ."},
+            {"name": "Костюм Relax Fit", "price": "2390 грн", "desc": "Свободный крой."},
+        ],
     },
-    {
-        "name": "Платье Cozy Flow",
-        "price": "1590 грн",
-        "desc": "Уютное платье свободного кроя. Идеально для прогулок."
+    "lingerie": {
+        "title": "🩱 Нижнее бельё",
+        "items": [
+            {"name": "Комплект Silk Touch", "price": "1290 грн", "desc": "Нежный и комфортный."},
+            {"name": "Комплект Lace Mood", "price": "1390 грн", "desc": "Женственный акцент."},
+            {"name": "Комплект Soft Basic", "price": "1190 грн", "desc": "На каждый день."},
+        ],
     },
-]
+    "outerwear": {
+        "title": "🧥 Верхняя одежда",
+        "items": [
+            {"name": "Пальто Soft City", "price": "3490 грн", "desc": "Минимализм и тепло."},
+            {"name": "Куртка Cozy Air", "price": "2990 грн", "desc": "Лёгкая и удобная."},
+            {"name": "Жакет Elegant Line", "price": "2790 грн", "desc": "Завершённый образ."},
+        ],
+    },
+}
 
 # ---- START ----
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
         "Добро пожаловать в Soft Mood 🤍\n\n"
         "Мы — магазин женской одежды.\n"
-        "Здесь вы можете спокойно подобрать образ,\n"
-        "оставить заявку и связаться с менеджером.\n\n"
-        "Выберите, что вас интересует 👇"
+        "Поможем подобрать образ и оформить заказ.\n\n"
+        "Выберите категорию 👇"
     )
 
     keyboard = [
@@ -47,22 +63,25 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(text, reply_markup=InlineKeyboardMarkup(keyboard))
 
-# ---- ПОКАЗ ПЛАТЬЯ ----
-async def show_dress(query, context, index):
-    dress = DRESSES[index]
-    context.user_data["dress_index"] = index
-    context.user_data["waiting_for_phone"] = False
+# ---- ПОКАЗ ТОВАРА ----
+async def show_item(query, context):
+    category_key = context.user_data["category"]
+    index = context.user_data["item_index"]
+
+    category = CATEGORIES[category_key]
+    item = category["items"][index]
 
     text = (
-        f"👗 {dress['name']}\n"
-        f"💰 {dress['price']}\n\n"
-        f"{dress['desc']}"
+        f"{category['title']}\n\n"
+        f"✨ {item['name']}\n"
+        f"💰 {item['price']}\n\n"
+        f"{item['desc']}"
     )
 
     keyboard = [
         [InlineKeyboardButton("🛍 Заказать", callback_data="order")],
-        [InlineKeyboardButton("➡️ Следующее платье", callback_data="next_dress")],
-        [InlineKeyboardButton("🔙 Назад", callback_data="back_to_categories")]
+        [InlineKeyboardButton("➡️ Следующий товар", callback_data="next_item")],
+        [InlineKeyboardButton("🔙 Назад", callback_data="back_to_categories")],
     ]
 
     await query.message.reply_text(text, reply_markup=InlineKeyboardMarkup(keyboard))
@@ -76,37 +95,38 @@ async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if data == "women":
         keyboard = [
             [InlineKeyboardButton("👗 Платья", callback_data="dresses")],
-            [InlineKeyboardButton("🔙 Назад", callback_data="back_to_start")]
+            [InlineKeyboardButton("🧥 Костюмы", callback_data="suits")],
+            [InlineKeyboardButton("🩱 Нижнее бельё", callback_data="lingerie")],
+            [InlineKeyboardButton("🧥 Верхняя одежда", callback_data="outerwear")],
+            [InlineKeyboardButton("🔙 Назад", callback_data="back_to_start")],
         ]
         await query.message.reply_text(
             "Выберите категорию 👇",
-            reply_markup=InlineKeyboardMarkup(keyboard)
+            reply_markup=InlineKeyboardMarkup(keyboard),
         )
 
-    elif data == "dresses":
-        await show_dress(query, context, 0)
+    elif data in CATEGORIES:
+        context.user_data["category"] = data
+        context.user_data["item_index"] = 0
+        await show_item(query, context)
 
-    elif data == "next_dress":
-        index = context.user_data.get("dress_index", 0)
-        index = (index + 1) % len(DRESSES)
-        await show_dress(query, context, index)
+    elif data == "next_item":
+        category = CATEGORIES[context.user_data["category"]]
+        context.user_data["item_index"] = (
+            context.user_data["item_index"] + 1
+        ) % len(category["items"])
+        await show_item(query, context)
 
     elif data == "order":
         context.user_data["waiting_for_phone"] = True
         await query.message.reply_text(
-            "Спасибо 💛\n\n"
-            "Напишите, пожалуйста, ваш номер телефона.\n"
-            "Менеджер свяжется с вами для уточнения деталей."
+            "Спасибо 💛\n\nНапишите ваш номер телефона — менеджер свяжется с вами."
         )
 
     elif data == "back_to_categories":
-        keyboard = [
-            [InlineKeyboardButton("👗 Платья", callback_data="dresses")],
-            [InlineKeyboardButton("🔙 Назад", callback_data="back_to_start")]
-        ]
-        await query.message.reply_text(
-            "Выберите категорию 👇",
-            reply_markup=InlineKeyboardMarkup(keyboard)
+        await buttons(
+            Update(update.update_id, callback_query=query._replace(data="women")),
+            context,
         )
 
     elif data == "back_to_start":
@@ -116,32 +136,27 @@ async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if context.user_data.get("waiting_for_phone"):
         phone = update.message.text
-        dress = DRESSES[context.user_data.get("dress_index", 0)]
+        category = CATEGORIES[context.user_data["category"]]
+        item = category["items"][context.user_data["item_index"]]
 
-        # сообщение тебе
         order_text = (
             "🛍 НОВЫЙ ЗАКАЗ\n\n"
-            f"👗 Товар: {dress['name']}\n"
-            f"💰 Цена: {dress['price']}\n"
+            f"📂 Категория: {category['title']}\n"
+            f"✨ Товар: {item['name']}\n"
+            f"💰 Цена: {item['price']}\n"
             f"📞 Телефон: {phone}\n"
             "📍 Город: Киев\n"
-            "🚚 Доставка: Новая почта (наложенный платёж)"
+            "🚚 Новая почта — наложенный платёж"
         )
 
         await context.bot.send_message(chat_id=OWNER_ID, text=order_text)
 
-        # ответ клиенту
         await update.message.reply_text(
-            "Спасибо 🤍\n\n"
-            "Мы находимся в Киеве.\n"
-            "Отправка Новой почтой,\n"
-            "оплата — наложенным платежом.\n\n"
-            "Менеджер скоро свяжется с вами 🌷"
+            "Спасибо 🤍\n"
+            "Мы свяжемся с вами в ближайшее время 🌷"
         )
 
         context.user_data["waiting_for_phone"] = False
-    else:
-        await update.message.reply_text("Я рядом 🤍")
 
 # ---- ЗАПУСК ----
 app = ApplicationBuilder().token(TOKEN).build()
