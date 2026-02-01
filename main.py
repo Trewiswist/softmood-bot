@@ -18,37 +18,91 @@ CATEGORIES = {
         "title": "👗 Платья",
         "items": [
             {
-    "name": "Платье из двухсторонней ангоры с вышивкой ✨ 7560",
-    "price": "1165 ₴",
-    "description": "Мягчайшая двухсторонняя ангора 🤍\nВысокий уютный гольф + роскошная вышивка на рукавах 🌿\n\nСвободный крой — полная свобода движений 💫\nДлина миди\nОбъёмные рукава с манжетами\n\nЦвета:\n· молочный беж\n· шоколад\n· чёрный\n· зелёный\n\nРазмеры:\nS–M (42–44)\nL–XL (46–48)\n2XL–3XL (50–52)\n\nТепло × Стиль × Комфорт в одном платье 🫶\nИдеально с сапогами, кроссовками или лодочками — от прогулки до свидания и маленького праздника 💃",
-    "photo": "https://images.prom.ua/6878199359_w640_h640_plate-iz-dvustoronnego.jpg"
+    "name": "Платье Evening Mood",
+    "price": "1890 грн",
+    "description": "Для особых случаев 🤍",
+    "photo": "https://..."
 },
-            {"name": "Платье Evening Mood", "price": "1890 грн", "description": "Для особых случаев."},
-            {"name": "Платье Cozy Flow", "price": "1590 грн", "desc": "Комфорт и уют."},
-        ],
+            {
+    "name": "Платье Evening Mood",
+    "price": "1890 грн",
+    "description": "Для особых случаев 🤍",
+    "photo": "https://..."
+},
+            {
+    "name": "Платье Evening Mood",
+    "price": "1890 грн",
+    "description": "Для особых случаев 🤍",
+    "photo": "https://..."
+},
     },
     "suits": {
         "title": "🧥 Костюмы",
         "items": [
-            {"name": "Костюм Urban Chic", "price": "2490 грн", "description": "Стиль на каждый день."},
-            {"name": "Костюм Soft Office", "price": "2690 грн", "description": "Элегантный образ."},
-            {"name": "Костюм Relax Fit", "price": "2390 грн", "desc": "Свободный крой."},
+            {
+    "name": "Платье Evening Mood",
+    "price": "1890 грн",
+    "description": "Для особых случаев 🤍",
+    "photo": "https://..."
+},
+            {
+    "name": "Платье Evening Mood",
+    "price": "1890 грн",
+    "description": "Для особых случаев 🤍",
+    "photo": "https://..."
+},
+            {
+    "name": "Платье Evening Mood",
+    "price": "1890 грн",
+    "description": "Для особых случаев 🤍",
+    "photo": "https://..."
+},
         ],
     },
     "lingerie": {
         "title": "🩱 Нижнее бельё",
         "items": [
-            {"name": "Комплект Silk Touch", "price": "1290 грн", "description": "Нежный и комфортный."},
-            {"name": "Комплект Lace Mood", "price": "1390 грн", "description": "Женственный акцент."},
-            {"name": "Комплект Soft Basic", "price": "1190 грн", "description": "На каждый день."},
+            {
+    "name": "Платье Evening Mood",
+    "price": "1890 грн",
+    "description": "Для особых случаев 🤍",
+    "photo": "https://..."
+},
+            {
+    "name": "Платье Evening Mood",
+    "price": "1890 грн",
+    "description": "Для особых случаев 🤍",
+    "photo": "https://..."
+},
+            {
+    "name": "Платье Evening Mood",
+    "price": "1890 грн",
+    "description": "Для особых случаев 🤍",
+    "photo": "https://..."
+},
         ],
     },
     "outerwear": {
         "title": "🧥 Верхняя одежда",
         "items": [
-            {"name": "Пальто Soft City", "price": "3490 грн", "description": "Минимализм и тепло."},
-            {"name": "Куртка Cozy Air", "price": "2990 грн", "description": "Лёгкая и удобная."},
-            {"name": "Жакет Elegant Line", "price": "2790 грн", "description": "Завершённый образ."},
+            {
+    "name": "Платье Evening Mood",
+    "price": "1890 грн",
+    "description": "Для особых случаев 🤍",
+    "photo": "https://..."
+},
+            {
+    "name": "Платье Evening Mood",
+    "price": "1890 грн",
+    "description": "Для особых случаев 🤍",
+    "photo": "https://..."
+},
+            {
+    "name": "Платье Evening Mood",
+    "price": "1890 грн",
+    "description": "Для особых случаев 🤍",
+    "photo": "https://..."
+},
         ],
     },
 }
